@@ -1,4 +1,5 @@
 import {bootstrap, Component, NgFor} from 'angular2/angular2';
+import {TodoList} from './services/todo-list';
 import {TodoItem} from './todo-item';
 
 @Component({
@@ -21,7 +22,7 @@ import {TodoItem} from './todo-item';
               </tr>
             </thead>
             <tbody>
-              <tr *ng-for="#todo of todos" class="fullwidth">
+              <tr *ng-for="#todo of todoList.todos" class="fullwidth">
                 <td class="mdl-data-table__cell--non-numeric">
                   <input type="checkbox" [checked]="todo.completed" disabled>
                 </td>
@@ -38,11 +39,7 @@ import {TodoItem} from './todo-item';
     ]
 })
 class AppComponent {
-  todos: TodoItem[] = [
-    new TodoItem("Grocery shopping"),
-    new TodoItem("Make a fruit salad"),
-    new TodoItem("Get money")
-  ]
+  constructor(public todoList: TodoList) {}
 }
 
-bootstrap(AppComponent);
+bootstrap(AppComponent, TodoList);
