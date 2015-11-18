@@ -28,6 +28,11 @@ import {TodoItem} from './todo-item';
                   <input type="checkbox" [(ng-model)]="todo.completed">
                 </td>
                 <td [router-link]="['/TodoDetail', {id: i}]" class="mdl-data-table__cell--non-numeric">{{ todo.description }}</td>
+                <td>
+                  <button (click)="deleteTodo(todo, i)" class="mdl-button mdl-js-button mdl-button--colored">
+                    <i class="material-icons">delete</i>
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -42,4 +47,7 @@ import {TodoItem} from './todo-item';
 })
 export class TodoListComponent {
   constructor(public todoList: TodoList) {}
+  deleteTodo(todo: TodoItem, index: number) {
+    this.todoList.todos.splice(index, 1);
+  }
 }
