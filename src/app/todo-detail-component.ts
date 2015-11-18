@@ -27,7 +27,10 @@ import {TodoItem} from './todo-item';
       <div class="page-content">
         <div class="todo-card mdl-card mdl-shadow--2dp">
           <div class="mdl-card__supporting-text">
-            {{ todo.description }}
+            <label>Completed: <input type="checkbox" [(ng-model)]="todo.completed"></label>
+            <div class="mdl-textfield mdl-js-textfield">
+              <input class="mdl-textfield__input" type="text" id="description" [(ng-model)]="todo.description">
+            </div>
           </div>
         </div>
       </div>

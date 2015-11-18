@@ -1,4 +1,4 @@
-import {bootstrap, Component, NgFor} from 'angular2/angular2';
+import {bootstrap, Component, NgFor, NgModel} from 'angular2/angular2';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {TodoList} from './services/todo-list';
 import {TodoItem} from './todo-item';
@@ -23,11 +23,11 @@ import {TodoItem} from './todo-item';
               </tr>
             </thead>
             <tbody>
-              <tr *ng-for="#todo of todoList.todos; #i = index" class="fullwidth" [router-link]="['/TodoDetail', {id: i}]">
+              <tr *ng-for="#todo of todoList.todos; #i = index" class="fullwidth">
                 <td class="mdl-data-table__cell--non-numeric">
-                  <input type="checkbox" [checked]="todo.completed" disabled>
+                  <input type="checkbox" [(ng-model)]="todo.completed">
                 </td>
-                <td class="mdl-data-table__cell--non-numeric">{{ todo.description }}</td>
+                <td [router-link]="['/TodoDetail', {id: i}]" class="mdl-data-table__cell--non-numeric">{{ todo.description }}</td>
               </tr>
             </tbody>
           </table>
