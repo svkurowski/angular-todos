@@ -1,11 +1,12 @@
 import {bootstrap, Component, NgFor, NgModel} from 'angular2/angular2';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
+import {TodoFormComponent} from './todo-form';
 import {TodoList} from './services/todo-list';
 import {TodoItem} from './todo-item';
 
 @Component({
   selector: 'todo-list',
-  directives: [NgFor, ROUTER_DIRECTIVES],
+  directives: [NgFor, TodoFormComponent, ROUTER_DIRECTIVES],
   template: `
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
       <header class="mdl-layout__header">
@@ -36,6 +37,7 @@ import {TodoItem} from './todo-item';
               </tr>
             </tbody>
           </table>
+          <todo-form></todo-form>
         </div>
       </main>
     </div>
