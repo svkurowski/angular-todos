@@ -1,45 +1,23 @@
-import {bootstrap, Component, NgFor} from 'angular2/angular2';
+import {bootstrap, provide, Component} from 'angular2/angular2';
+import {RouteConfig, Route, Redirect, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import {TodoList} from './services/todo-list';
-import {TodoItem} from './todo-item';
+import {TodoListComponent} from './todo-list-component';
+import {TodoDetailComponent} from './todo-detail-component';
 
 @Component({
-    selector: 'app',
-    directives: [NgFor],
-    template: `
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Todos</span>
-        </div>
-      </header>
-      <main class="mdl-layout__content">
-        <div class="page-content">
-          <table class="mdl-data-table mdl-js-data-table fullwidth">
-            <thead>
-              <tr class="fullwidth">
-                <th class="mdl-data-table__cell--non-numeric">Completed</th>
-                <th class="mdl-data-table__cell--non-numeric">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ng-for="#todo of todoList.todos" class="fullwidth">
-                <td class="mdl-data-table__cell--non-numeric">
-                  <input type="checkbox" [checked]="todo.completed" disabled>
-                </td>
-                <td class="mdl-data-table__cell--non-numeric">{{ todo.description }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </main>
-    </div>
-    `,
-    styles: [
-      '.fullwidth { width: 100%; }'
-    ]
+  selector: 'app',
+  directives: [ ROUTER_DIRECTIVES ],
+  template: '<router-outlet></router-outlet>'
 })
-class AppComponent {
-  constructor(public todoList: TodoList) {}
-}
+@RouteConfig([
+  new Redirect({ path: '/', redirectTo: '/todos' }),
+  new Route({ path: '/todos', component: TodoListComponent, name: 'TodoList' }),
+  new Route({ path: '/todos/:id', component: TodoDetailComponent, name: 'TodoDetail' })
+])
+class AppComponent { }
 
-bootstrap(AppComponent, TodoList);
+bootstrap(AppComponent, [
+  TodoList,
+  ROUTER_PROVIDERS,
+  provide(LocationStrategy, {useClass: HashLocationStrategy})
+]);
