@@ -1,0 +1,12 @@
+[
+  {
+    "description": "Grocery shopping",
+    "completed": true
+  }, {
+    "description": "Make a fruit salad",
+    "completed": false
+  }, {
+    "description": "Get money",
+    "completed": false
+  }
+]
